@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+CREATE STUDENT
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-2">
+    {% if update %}
+    <h3>UPDATE STUDENT INFORMATIONS</h3>
+    {% else %}
+    <h3>CREATE STUDENT INFORMATIONS</h3>
+    {% endif %}
+
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy}}
+        <button type="submit" class="btn btn-primary">
+            {% if update %}
+            Update
+            {% else %}
+            Create
+            {% endif %} </button>
+    </form>
+</div>
+{% endblock content %}
