@@ -2,16 +2,21 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
+{% if update %}
+UPDATE STUDENT
+{% else %}
 CREATE STUDENT
+{% endif %}
 {% endblock title %}
 
 {% block content %}
-<div class="container mt-2">
+<div class="container mt-3">
     {% if update %}
     <h3>UPDATE STUDENT INFORMATIONS</h3>
     {% else %}
     <h3>CREATE STUDENT INFORMATIONS</h3>
     {% endif %}
+    <hr>
 
 
     <form method="POST" enctype="multipart/form-data">
@@ -22,7 +27,8 @@ CREATE STUDENT
             Update
             {% else %}
             Create
-            {% endif %} </button>
+            {% endif %}
+        </button>
     </form>
 </div>
 {% endblock content %}

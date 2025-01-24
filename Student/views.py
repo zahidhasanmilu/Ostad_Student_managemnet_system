@@ -37,3 +37,10 @@ def update_student(request, student_id):
         else:
             return HttpResponse('Something went wrong')
     return render(request, 'create_student.html', context={'form': form, 'update': True})
+
+
+def delete_student(request, student_id):
+    student = Students.objects.get(id=student_id)
+    student.delete()
+    messages.success(request, 'Student deleted successfully.')
+    return redirect('home')

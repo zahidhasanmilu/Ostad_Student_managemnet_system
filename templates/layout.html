@@ -12,7 +12,7 @@
 
     <title>
         {% block title %}
-        Student Management System
+        STUDENT MANAGEMENT SYSTEM
         {% endblock title %}
     </title>
 </head>
@@ -20,7 +20,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">STUDENT MANAGEMENT STUDENT</a>
+            <a class="navbar-brand" href="{% url 'home' %}">STUDENT MANAGEMENT SYSTEM</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -31,17 +31,12 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'create_student' %}">Create Student</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link active">|</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
+                    </li> -->
+
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+
             </div>
         </div>
     </nav>
