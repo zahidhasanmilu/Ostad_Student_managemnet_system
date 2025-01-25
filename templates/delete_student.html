@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Confirm Delete
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Are you sure you want to delete <strong class="text-danger">{{ student.name }}</strong>?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, delete</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock content %}
