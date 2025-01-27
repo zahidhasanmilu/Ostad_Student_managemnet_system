@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+SIGNUP
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container mt-3">
+    <h3>SIGNUP HERE</h3>
+    <form method="POST">
+
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit" class="btn btn-primary">SIGNUP</button>
+    </form>
+</div>
+
+{% endblock content %}
