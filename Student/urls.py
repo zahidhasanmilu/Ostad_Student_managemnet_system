@@ -14,6 +14,8 @@ urlpatterns = [
     #      views.delete_student, name='student_delete'),
     path('student/delete/<int:student_id>/',
          views.Delete_student.as_view(), name='student_delete'),
+    path('profile/', views.User_Profile.as_view(), name='user_profile'),
+    
 
     # path('add_student/', views.add_student, name='add_student'),
     # path('update_student/<int:id>/', views.update_student, name='update_student'),

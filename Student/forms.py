@@ -11,7 +11,8 @@ class StudentForm(forms.ModelForm):
 
     class Meta:
         model = Students
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ['user']
 
         labels = {
             'name': 'Full Name',

@@ -5,8 +5,13 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from .utils import logout_required
+from django.views.generic import TemplateView, ListView
+
 
 # Create your views here.
+
+@logout_required
 def user_signup(request):
     form = UserCreationForm()
     if request.method == 'POST':
@@ -20,6 +25,7 @@ def user_signup(request):
             return redirect('user_signup')          
     return render(request, 'user_auth/signup.html', context={'form': form})
 
+@logout_required
 def user_login(request):
     form = AuthenticationForm()
     if request.method=='POST':
@@ -30,7 +36,7 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, 'Logged in successfully')
+                messages.success(request, f'"{user.username}" -Logged in successfully')
                 return redirect('home')
             else:
                 messages.error(request, 'Invalid username or password')
@@ -40,7 +46,16 @@ def user_login(request):
             return redirect('user_login')
     return render(request, 'user_auth/login.html', context={'form': form})
 
+@login_required
 def user_logout(request):
     logout(request)
     messages.success(request, 'Logged out successfully')
     return redirect('user_login')
+
+
+# def user_profile(request):
+#     students = Students.objects.filter(user=request.user)
+#     return render(request, 'user_auth/profile.html', context={'students': students})
+
+
+

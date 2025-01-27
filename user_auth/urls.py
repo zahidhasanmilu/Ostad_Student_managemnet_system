@@ -1,9 +1,9 @@
 from django.urls import path
-from user_auth import views
-
+from user_auth.views import user_signup, user_login, user_logout
 
 urlpatterns = [
-    path('signup/', views.user_signup, name='user_signup'),
-    path('login/', views.user_login, name='user_login'),
-    path('logout/', views.user_logout, name='user_logout'),
+    path('signup/', user_signup, name='user_signup'),
+    path('login/', user_login, name='user_login'),
+    path('logout/', user_logout, name='user_logout'),
+    # এখানে সঠিকভাবে 'UserProfile' ব্যবহার করুন
 ]

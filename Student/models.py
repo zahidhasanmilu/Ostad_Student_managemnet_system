@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 import os
 
 # Create your models here.
@@ -16,6 +18,7 @@ class Students(models.Model):
     password = models.CharField(max_length=50)
     photo = models.ImageField(upload_to=student_directory_path)
     checked = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.name

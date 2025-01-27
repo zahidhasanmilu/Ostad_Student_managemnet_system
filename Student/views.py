@@ -4,6 +4,7 @@ from .models import Students
 from .forms import StudentForm
 from django.contrib import messages
 from django.views.generic import ListView, TemplateView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -43,9 +44,15 @@ class Create_student(CreateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        # Get the student name from the form data (before saving)
-        student_name = form.cleaned_data['name']
-        messages.success(self.request, f'"{student_name}" - Student created successfully.')
+        # Associate the student with the logged-in user
+        form.instance.user = self.request.user
+        
+        # Save the student instance
+        student = form.save()
+        
+        # Add a success message with the student's name
+        messages.success(self.request, f'Student "{student.name}" created successfully.')
+        
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -78,6 +85,10 @@ class UpdateStudent(UpdateView):
     context_object_name = 'student'
 
     def form_valid(self, form):
+        if self.request.user != self.get_object().user:
+            # return HttpResponse('You are not allowed to edit this student.')
+            messages.error(self.request, 'You are not allowed to edit this student.')
+            return redirect('user_profile')
         student_name = self.object.name
         messages.success(self.request, f'"{student_name}" - Student updated successfully.')
         return super().form_valid(form)
@@ -116,3 +127,27 @@ class Delete_student(DeleteView):
         messages.success(self.request, f'Student "{student_name}" deleted successfully.')
         return super().delete(request, *args, **kwargs)
     
+    
+
+class User_Profile(ListView):
+    template_name = "user_auth/profile.html"
+    model = Students  # এখানে Students মডেল সঠিকভাবে ব্যবহার করা হয়েছে
+
+    def get_queryset(self):
+        # বর্তমান লগইন করা ইউজারের সাথে সম্পর্কিত স্টুডেন্টগুলোর তালিকা
+        return Students.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        # বাইরের কন্টেক্সট ডেটা নেওয়া
+        context = super().get_context_data(**kwargs)
+        # কাস্টম কন্টেক্সট ভ্যালু যোগ করা
+        context["students"] = self.get_queryset()  # get_queryset() থেকে ডাটা আনা
+        return context
+
+@login_required
+def user_profile(request):
+    students = Students.objects.filter(user=request.user)
+    context = {
+        'students': students
+    }
+    return render(request, 'user_auth/profile.html',context)
