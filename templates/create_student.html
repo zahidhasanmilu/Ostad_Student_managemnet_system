@@ -12,7 +12,7 @@ CREATE STUDENT
 {% block content %}
 <div class="container mt-3">
     {% if update %}
-    <h3>UPDATE STUDENT INFORMATIONS</h3>
+    <h3>UPDATE <strong class="text-primary">"{{ student.name|upper}}"</strong> STUDENT INFORMATIONS</h3>
     {% else %}
     <h3>CREATE STUDENT INFORMATIONS</h3>
     {% endif %}
